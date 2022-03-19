@@ -5,3 +5,20 @@
 第二章 Git应用
 2-1 Git安装
 验证安装：git --version
+2-2 Git命令
+(1)启动：进入需要管理的文件夹
+		Git Bash Here
+		进入git命令窗口
+(2)初始化本地仓库：->git init
+(3)设置签名命令（设置用户名和邮箱地址）
+   a.本地仓库设置签名：
+	->git config user.name XXX
+	->git config user.email XXX@qq.com
+        默认添加到.git/config的[user]
+   b.设置系统用户签名:
+        ->git config --global user.name XXX
+	->git config --global user.email XXX@qq.com
+	默认添加到.gitconfig的[user]
+ (4)
+ 2-3 GitHub连接
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC6AI8M4cjF2VCbZGkSPjCqhOQxmsClRvygiQSCs/dx6Sp0/j41tUGyRk+saXjC3SaIEF3Lw4bfTesQQOEPqTwUUGED419q1fsEJdIOBb4upHK9dqzuuEOCfelZu2KZqr20nZ02JNrPUqjudeKZkyk+Gh+yf9Eev0gWS8IZ/Hs1+dKLFh076vxFRGgk1TtJ3YQSDy9GPPhybrK2n9Ti7pxhqGiknqM89SbdcXiDYv5BjxN3CK+syWXHyIagges6NkuzOl5LaahtD1WUVWYB8l74vWF5C1P5ylJv2WFF7waJHu5W+A9AlkmkfGm0cyUGFmDEUR5yAw5gO5m0EXXNqi75xRfA8URgKi8cVmUH5KCYCd8owBNQCTPgW9phxIqjyLAsDBxpa79YhRgRP54TfKLTA6LUgomgQ86xJLrtUl5kAgVRB2+Sl+mErtb+pmwyWHK1LvgLMep6xV971jmcfT0OYdry9LnjCBiS4+J4cU3tTMRClnhcVO3VPIq7uy3/psE= 843575710@qq.com
