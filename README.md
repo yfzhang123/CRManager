@@ -4,4 +4,4 @@
 
 # 任意门
 ## 哪里不会点哪里
-### [CRMDay01分支 0（^-^）0]（https://github.com/yfzhang123/CRManager/crm_day01）
+### [CRMDay01分支 0（^-^）0](https://github.com/yfzhang123/CRManager/tree/crm_day01)
