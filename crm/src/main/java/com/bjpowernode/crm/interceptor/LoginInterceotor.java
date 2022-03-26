@@ -10,7 +10,7 @@ public class LoginInterceotor implements HandlerInterceptor {
     //控制器访问前的拦截方法
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
-        return false;
+        return true;
     }
     //控制器访问后的拦截方法
     @Override
