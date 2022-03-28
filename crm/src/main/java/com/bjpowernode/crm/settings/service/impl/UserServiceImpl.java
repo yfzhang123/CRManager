@@ -1,5 +1,6 @@
 package com.bjpowernode.crm.settings.service.impl;
 
+import com.bjpowernode.crm.exception.LoginException;
 import com.bjpowernode.crm.settings.dao.UserDao;
 import com.bjpowernode.crm.settings.domain.User;
 import com.bjpowernode.crm.settings.service.UserService;
@@ -31,16 +32,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Map<String,Object> findUserByLoginActAndLoginPwd_new(String loginAct, String md5Pwd,String ip) {
+    public Map<String,Object> findUserByLoginActAndLoginPwd_new(String loginAct, String md5Pwd,String ip) throws LoginException {
         //登录操作
         User user=userDao.findUserByLoginActAndLoginPwd(loginAct,md5Pwd);
         HashMap<String, Object> resultMap = new HashMap<>();
+        //使用异常处理器来决定失败的返回值内容
+
         if(user==null){
 //            //用户名或密码错误
-            resultMap.put("code",1);
-            resultMap.put("msg","登录失败，用户名或密码错误");
-            resultMap.put("data",null);
-            return resultMap;
+//            resultMap.put("code",1);
+//            resultMap.put("msg","登录失败，用户名或密码错误");
+//            resultMap.put("data",null);
+//            return resultMap;
+            throw new LoginException("用户名或密码错误");
         }
         //获取过期时间
         String expireTim = user.getExpireTime();
@@ -53,10 +57,11 @@ public class UserServiceImpl implements UserService {
         //返回-1代表已经过期
         if(!StringUtils.isEmpty(expireTim)){
             if(expireTim.compareTo(now)<=0){
-                resultMap.put("code",1);
-                resultMap.put("msg","当前用户已过期");
-                resultMap.put("data",null);
-                return resultMap;
+//                resultMap.put("code",1);
+//                resultMap.put("msg","当前用户已过期");
+//                resultMap.put("data",null);
+//                return resultMap;
+                throw new LoginException("当前用户已过期");
             }
         }
 
@@ -64,10 +69,11 @@ public class UserServiceImpl implements UserService {
         String lockState = user.getLockState();
         if(!StringUtils.isEmpty(lockState)){
             if("1".equals(lockState)){
-                resultMap.put("code",1);
-                resultMap.put("msg","当前用户已锁定");
-                resultMap.put("data",null);
-                return resultMap;
+//                resultMap.put("code",1);
+//                resultMap.put("msg","当前用户已锁定");
+//                resultMap.put("data",null);
+//                return resultMap;
+                throw new LoginException("当前用户已锁定");
             }
         }
 //检验用户是否IP被限制
@@ -76,10 +82,11 @@ public class UserServiceImpl implements UserService {
         if(!StringUtils.isEmpty(allowIps)){
             if(!allowIps.contains(ip)){
                 //IP受限
-                resultMap.put("code",1);
-                resultMap.put("msg","当前用户IP受限");
-                resultMap.put("data",null);
-                return resultMap;
+//                resultMap.put("code",1);
+//                resultMap.put("msg","当前用户IP受限");
+//                resultMap.put("data",null);
+//                return resultMap;
+                throw new LoginException("当前用户IP受限");
             }
         }
 
@@ -88,7 +95,7 @@ public class UserServiceImpl implements UserService {
 
         resultMap.put("code",0);
         resultMap.put("msg","登录成功");
-        resultMap.put("data",null);
+        resultMap.put("data",user);
 
         return resultMap;
     }
