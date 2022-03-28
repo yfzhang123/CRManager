@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <%
 String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath() + "/";
 %>
@@ -10,38 +10,38 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 <link href="jquery/bootstrap_3.3.0/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
 <script type="text/javascript" src="jquery/jquery-1.11.1-min.js"></script>
 <script type="text/javascript" src="jquery/bootstrap_3.3.0/js/bootstrap.min.js"></script>
-<script type="text/javascript">
+	<script type="text/javascript">
 
-	//页面加载完毕
-	$(function(){
-		
-		//导航中所有文本颜色为黑色
-		$(".liClass > a").css("color" , "black");
-		
-		//默认选中导航菜单中的第一个菜单项
-		$(".liClass:first").addClass("active");
-		
-		//第一个菜单项的文字变成白色
-		$(".liClass:first > a").css("color" , "white");
-		
-		//给所有的菜单项注册鼠标单击事件
-		$(".liClass").click(function(){
-			//移除所有菜单项的激活状态
-			$(".liClass").removeClass("active");
+		//页面加载完毕
+		$(function(){
+
 			//导航中所有文本颜色为黑色
 			$(".liClass > a").css("color" , "black");
-			//当前项目被选中
-			$(this).addClass("active");
-			//当前项目颜色变成白色
-			$(this).children("a").css("color","white");
+
+			//默认选中导航菜单中的第一个菜单项
+			$(".liClass:first").addClass("active");
+
+			//第一个菜单项的文字变成白色
+			$(".liClass:first > a").css("color" , "white");
+
+			//给所有的菜单项注册鼠标单击事件
+			$(".liClass").click(function(){
+				//移除所有菜单项的激活状态
+				$(".liClass").removeClass("active");
+				//导航中所有文本颜色为黑色
+				$(".liClass > a").css("color" , "black");
+				//当前项目被选中
+				$(this).addClass("active");
+				//当前项目颜色变成白色
+				$(this).children("a").css("color","white");
+			});
+
+			//加载内容区域的页面
+			window.open("settings/dictionary/type/toIndex.do","workareaFrame");
+
 		});
-		
-		//展示市场活动页面
-		window.open("settings/dictionary/type/toIndex.do","workareaFrame");
-		
-	});
-	
-</script>
+
+	</script>
 
 </head>
 <body>
@@ -143,11 +143,11 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 			<ul>
 				<li class="dropdown user-dropdown">
 					<a href="javascript:void(0)" style="text-decoration: none; color: white;" class="dropdown-toggle" data-toggle="dropdown">
-						<span class="glyphicon glyphicon-user"></span> zhangsan <span class="caret"></span>
+						<span class="glyphicon glyphicon-user"></span> ${user.name} <span class="caret"></span>
 					</a>
 					<ul class="dropdown-menu">
-						<li><a href="workbench/index.jsp"><span class="glyphicon glyphicon-home"></span> 工作台</a></li>
-						<li><a href="index.jsp"><span class="glyphicon glyphicon-wrench"></span> 系统设置</a></li>
+						<li><a href="workbench/toIndex.do"><span class="glyphicon glyphicon-home"></span> 工作台</a></li>
+						<li><a href="settings/toIndex.do"><span class="glyphicon glyphicon-wrench"></span> 系统设置</a></li>
 						<li><a href="javascript:void(0)" data-toggle="modal" data-target="#myInformation"><span class="glyphicon glyphicon-file"></span> 我的资料</a></li>
 						<li><a href="javascript:void(0)" data-toggle="modal" data-target="#editPwdModal"><span class="glyphicon glyphicon-edit"></span> 修改密码</a></li>
 						<li><a href="javascript:void(0);" data-toggle="modal" data-target="#exitModal"><span class="glyphicon glyphicon-off"></span> 退出</a></li>

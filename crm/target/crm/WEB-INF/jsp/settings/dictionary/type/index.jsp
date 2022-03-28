@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java"  isELIgnored="false" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath() + "/";
@@ -12,71 +12,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 
 <script type="text/javascript" src="jquery/jquery-1.11.1-min.js"></script>
 <script type="text/javascript" src="jquery/bootstrap_3.3.0/js/bootstrap.min.js"></script>
-	<script>
 
-		$(function () {
-
-			$("#toUpdateBtn").click(function () {
-
-				var $xz = $("input[name=xz]:checked");
-
-				if($xz.length==0){
-
-					alert("请选择需要修改的记录");
-
-				}else if($xz.length>1){
-
-					alert("只能选择一条记录执行修改操作");
-
-				}else{
-
-					var code = $xz.val();
-
-					window.location.href = "settings/dictionary/type/toTypeUpdate.do?code="+code;
-
-				}
-
-			})
-
-			$("#deleteBtn").click(function () {
-
-				var $xz = $("input[name=xz]:checked");
-
-				if($xz.length==0) {
-
-					alert("请选择需要删除的记录");
-
-				}else{
-
-					var param = "";
-
-					for(var i=0;i<$xz.length;i++){
-
-						param += "codes="+$($xz[i]).val();
-						if(i<$xz.length-1){
-
-							param += "&";
-
-						}
-					}
-
-
-
-					alert(param);
-
-					window.location.href = "settings/dictionary/type/deleteType.do?"+param;
-
-				}
-
-
-			})
-
-
-		})
-
-
-
-	</script>
 </head>
 <body>
 
@@ -106,13 +42,13 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				</tr>
 			</thead>
 			<tbody>
-				<%--<tr class="active">
+				<tr class="active">
 					<td><input type="checkbox" /></td>
 					<td>1</td>
 					<td>sex</td>
 					<td>性别</td>
 					<td>性别包括男和女</td>
-				</tr>--%>
+				</tr>
 
 				<c:forEach items="${dtList}" var="dt" varStatus="vs">
 
