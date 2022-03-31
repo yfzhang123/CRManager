@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bjpowernode.crm.settings.dao.DictionaryTypeDao">
+    <insert id="addDictionaryType">
+        insert into  tbl_dic_type (code,name ,description) values(#{code},#{name},#{description})
+    </insert>
+    <select id="findDictionaryTypeList" resultType="com.bjpowernode.crm.settings.domain.DictionaryType">
+        select * from tbl_dic_type
+    </select>
+    <select id="findDictionaryTypeByCode" resultType="com.bjpowernode.crm.settings.domain.DictionaryType">
+        select * from tbl_dic_type where code=#{code}
+    </select>
+    <!--   <select id="findById" resultType="com.bjpowernode.crm.settings.domain.DictionaryType">
+           select * from tbl_dic_type where
+       </select>-->
+
+</mapper>

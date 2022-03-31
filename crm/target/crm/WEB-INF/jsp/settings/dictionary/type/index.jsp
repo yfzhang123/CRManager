@@ -12,7 +12,21 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 
 <script type="text/javascript" src="jquery/jquery-1.11.1-min.js"></script>
 <script type="text/javascript" src="jquery/bootstrap_3.3.0/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="jquery/js/dictionary.js">
 
+</script>
+	<script>
+		$(function (){
+			//1、全选和反选
+				selectAll();
+				revers();
+		})
+
+
+
+
+
+	</script>
 </head>
 <body>
 
@@ -34,27 +48,27 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 		<table class="table table-hover">
 			<thead>
 				<tr style="color: #B3B3B3;">
-					<td><input type="checkbox" id="qx"/></td>
-					<td>序号</td>
+					<td><input type="checkbox" id="selectAllBtn"/></td>
+					<td >序号</td>
 					<td>编码</td>
 					<td>名称</td>
 					<td>描述</td>
 				</tr>
 			</thead>
 			<tbody>
-				<tr class="active">
-					<td><input type="checkbox" /></td>
-					<td>1</td>
-					<td>sex</td>
-					<td>性别</td>
-					<td>性别包括男和女</td>
-				</tr>
+<%--				<tr class="active">--%>
+<%--					<td><input type="checkbox" /></td>--%>
+<%--					<td>1</td>--%>
+<%--					<td>sex</td>--%>
+<%--					<td>性别</td>--%>
+<%--					<td>性别包括男和女</td>--%>
+<%--				</tr>--%>
 
-				<c:forEach items="${dtList}" var="dt" varStatus="vs">
-
-					<tr class="active">
-						<td><input type="checkbox" name="xz" value="${dt.code}"/></td>
-						<td>${vs.count}</td>
+				<c:forEach items="${dictionaryTypeList}" var="dt" varStatus="dts">
+<%--          动态改变每一行的颜色显示--%>
+					<tr class="${dts.index%2==0? 'active':''}">
+						<td><input type="checkbox"  name="ck"/></td>
+						<td>${dts.count}</td>
 						<td>${dt.code}</td>
 						<td>${dt.name}</td>
 						<td>${dt.description}</td>

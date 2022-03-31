@@ -13,59 +13,15 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 
 <script type="text/javascript" src="jquery/jquery-1.11.1-min.js"></script>
 <script type="text/javascript" src="jquery/bootstrap_3.3.0/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="jquery/js/dictionary.js"></script>
 	<script>
 
 		$(function () {
-
-			$("#code").focus(function () {
-
-				$("#msg").html("");
-
+			//1 检查新增编码是否已重复
+			checkCode();
+			//2 新增操作
+			saveDictionaryType();
 			})
-
-			$("#saveBtn").click(function () {
-
-				//验证字符编码不能为空
-
-				var code = $.trim($("#code").val());
-
-				if(code==""){
-
-					$("#msg").html("字符编码不能为空");
-
-					return false;
-
-				}
-
-				$.ajax({
-
-					url : "settings/dictionary/type/checkCode.do",
-					data : {
-
-						"code" : code
-
-					},
-					type : "get",
-					dataType : "json",
-					success :function (data) {
-
-						if(data.success){
-
-							$("#typeForm").submit();
-
-						}else{
-
-							$("#msg").html("字符编码重复");
-
-						}
-
-					}
-
-				})
-
-			})
-
-		})
 
 	</script>
 </head>
@@ -74,7 +30,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	<div style="position:  relative; left: 30px;">
 		<h3>新增字典类型</h3>
 	  	<div style="position: relative; top: -40px; left: 70%;">
-			<button type="button" class="btn btn-primary" id="saveBtn">保存</button>
+			<button type="button" class="btn btn-primary" id="saveDictionaryTypeBtn">保存</button>
 			<button type="button" class="btn btn-default" onclick="window.history.back();">取消</button>
 		</div>
 		<hr style="position: relative; top: -40px;">
