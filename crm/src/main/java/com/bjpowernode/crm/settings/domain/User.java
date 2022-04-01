@@ -1,11 +1,15 @@
 package com.bjpowernode.crm.settings.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 //lombok坐标提供的注解、日志注解
 //@Data注解可以帮助我们生成实体类的get/set方法和toString等方法
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class User implements Serializable {
     private  String id;
     private String loginAct;

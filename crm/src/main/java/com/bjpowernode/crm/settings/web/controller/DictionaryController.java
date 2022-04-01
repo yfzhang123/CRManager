@@ -1,7 +1,10 @@
 package com.bjpowernode.crm.settings.web.controller;
 
 import com.bjpowernode.crm.exception.AjaxRequestException;
+import com.bjpowernode.crm.exception.TraditionRequestException;
+import com.bjpowernode.crm.settings.dao.DictionaryValueDao;
 import com.bjpowernode.crm.settings.domain.DictionaryType;
+import com.bjpowernode.crm.settings.domain.DictionaryValue;
 import com.bjpowernode.crm.settings.service.DictionaryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -37,6 +40,7 @@ public class DictionaryController {
 
         return "/settings/dictionary/type/index";
     }
+    //返回字典值页面
     @RequestMapping("/value/toIndex.do")
     public String toValueIndex(){
         return "/settings/dictionary/value/index";
@@ -78,7 +82,88 @@ public class DictionaryController {
             throw new AjaxRequestException("添加失败");
         }
     }
+    //跳转到字典类型编辑页面
+    @RequestMapping("/type/toEdit.do")
+    public String toTypeEdit(String code,Model model) throws TraditionRequestException {
+        //根据编码查询字典类型数据
+        DictionaryType dictionaryType = dictionaryService.findDictionaryTypeByCode(code);
+        if (dictionaryType==null){
+            throw new TraditionRequestException("当前数据查询异常");
+        }
+        //封装到Model对象中
+        model.addAttribute("dictionaryType",dictionaryType);
+        //跳转到修改页面
+        return "/settings/dictionary/type/edit";
+    }
+    //更新字典类型操作
+    @RequestMapping("/type/updateDictionaryType.do")
+    @ResponseBody
+    public Map<String,Object> updateDictionaryType(DictionaryType dictionaryType) throws AjaxRequestException {
+        //更新操作，以update方法名称开头
+        boolean flag=dictionaryService.updateDictionaryType(dictionaryType);
+        if(!flag){
+            //修改失败
+            throw new AjaxRequestException("修改字典类型失败");
 
+        }
+        Map<String,Object> resultMap=new HashMap<>();
+        resultMap.put("code",0);
+        resultMap.put("msg","修改成功");
+        return resultMap;
+
+    }
+    //批量删除字典类型操作
+    @RequestMapping("/type/batchDeleteDictionaryType.do")
+    @ResponseBody
+    public Map<String,Object> batchDeleteDictionaryType(String[] codes) throws AjaxRequestException {
+        boolean flag=dictionaryService.batchDeleteDictionaryType(codes);
+        if(!flag){
+            throw new AjaxRequestException("删除失败");
+        }
+        Map<String,Object> resultMap=new HashMap<>();
+        resultMap.put("code",0);
+        resultMap.put("msg","删除成功");
+        return resultMap;
+
+    }
+    //批量删除--考虑1对多关联关系
+    @RequestMapping("/type/batchDeleteDictionaryTypeCondition.do")
+    @ResponseBody
+    public Map<String,Object> batchDeleteDictionaryTypeCondition(String[] codes) throws AjaxRequestException {
+        List<String> codelist = dictionaryService.batchDeleteDictionaryTypeCondition(codes);
+        if(ObjectUtils.isEmpty(codelist)){
+            //批量删除，全部执行成功
+            Map<String,Object> resultMap=new HashMap<>();
+            resultMap.put("code",0);
+            resultMap.put("msg","删除成功");
+            return resultMap;
+        }
+        //部分内容无法删除
+        Map<String,Object> resultMap=new HashMap<>();
+        resultMap.put("code",1);
+        resultMap.put("msg","删除成功，部分数据有关联关系，无法删除");
+        resultMap.put("data",codelist);
+        return resultMap;
+
+    }
+    //
+    @RequestMapping("/value/getDictionaryValueList.do")
+    @ResponseBody
+    public  Map<String,Object> getDictionaryValueList(){
+        //查询字典值列表
+        List<DictionaryValue> dictionaryValueList=dictionaryService.findDictionaryValueList();
+        Map<String,Object> resultMap=new HashMap<>();
+        if(ObjectUtils.isEmpty(dictionaryValueList)){
+            //没有字典值列表数据
+            resultMap.put("code",0);
+            resultMap.put("msg","当前列表无数据");
+            return resultMap;
+        }
+        resultMap.put("code",0);
+        resultMap.put("msg","查询成功");
+        resultMap.put("data",dictionaryValueList);
+        return resultMap;
+    }
 }
 
 

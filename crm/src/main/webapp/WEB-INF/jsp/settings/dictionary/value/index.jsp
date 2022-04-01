@@ -11,6 +11,17 @@
 
 	<script type="text/javascript" src="jquery/jquery-1.11.1-min.js"></script>
 	<script type="text/javascript" src="jquery/bootstrap_3.3.0/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="jquery/js/dictionary.js"></script>
+	<script>
+		$(function (){
+			//1 加载字典值列表，异步加载
+			getDictionaryValueList();
+			// 全选 反选
+			selectValueAll();
+			reversValueAll();
+
+		})
+	</script>
 </head>
 <body>
 
@@ -32,7 +43,7 @@
 	<table class="table table-hover">
 		<thead>
 		<tr style="color: #B3B3B3;">
-			<td><input type="checkbox" /></td>
+			<td><input type="checkbox" id="selectValueAll"/></td>
 			<td>序号</td>
 			<td>字典值</td>
 			<td>文本</td>
@@ -40,8 +51,8 @@
 			<td>字典类型编码</td>
 		</tr>
 		</thead>
-		<tbody>
-		<tr class="active">
+		<tbody id="dictionaryValueListBody">
+		<%--<tr class="active">
 			<td><input type="checkbox" /></td>
 			<td>1</td>
 			<td>m</td>
@@ -80,7 +91,7 @@
 			<td>三级部门</td>
 			<td>3</td>
 			<td>orgType</td>
-		</tr>
+		</tr>--%>
 		</tbody>
 	</table>
 </div>

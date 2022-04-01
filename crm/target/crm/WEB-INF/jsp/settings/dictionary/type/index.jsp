@@ -20,6 +20,10 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 			//1、全选和反选
 				selectAll();
 				revers();
+				//2、跳转到修改页面并回显数据
+			toTypeEdit();
+			//3 批量删除，并回显数据
+			batchDeleteDictionaryType();
 		})
 
 
@@ -40,8 +44,8 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	<div class="btn-toolbar" role="toolbar" style="background-color: #F7F7F7; height: 50px; position: relative;left: 30px;">
 		<div class="btn-group" style="position: relative; top: 18%;">
 		  <button type="button" class="btn btn-primary" onclick="window.location.href='settings/dictionary/type/toTypeSave.do'"><span class="glyphicon glyphicon-plus"></span> 创建</button>
-		  <button type="button" class="btn btn-default" id="toUpdateBtn"><span class="glyphicon glyphicon-edit"></span> 编辑</button>
-		  <button type="button" class="btn btn-danger" id="deleteBtn"><span class="glyphicon glyphicon-minus"></span> 删除</button>
+		  <button type="button" class="btn btn-default" id="toTypeEditBtn"><span class="glyphicon glyphicon-edit"></span> 编辑</button>
+		  <button type="button" class="btn btn-danger" id="batchDeleteDictionaryTypeBtn"><span class="glyphicon glyphicon-minus"></span> 删除</button>
 		</div>
 	</div>
 	<div style="position: relative; left: 30px; top: 20px;">
@@ -67,7 +71,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				<c:forEach items="${dictionaryTypeList}" var="dt" varStatus="dts">
 <%--          动态改变每一行的颜色显示--%>
 					<tr class="${dts.index%2==0? 'active':''}">
-						<td><input type="checkbox"  name="ck"/></td>
+						<td><input type="checkbox"  name="ck" value="${dt.code}"/></td>
 						<td>${dts.count}</td>
 						<td>${dt.code}</td>
 						<td>${dt.name}</td>

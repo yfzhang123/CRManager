@@ -9,5 +9,11 @@ public interface DictionaryTypeDao {
     DictionaryType findDictionaryTypeByCode(String Code);
 
     int addDictionaryType(DictionaryType dictionaryType);
+
+    boolean updateDictionaryType(DictionaryType dictionaryType);
+
+    boolean deleteBycode(String code);
+
+    boolean deletelistBycodes(String[] codes);
 //    DictionaryType findById(String id);
 }
