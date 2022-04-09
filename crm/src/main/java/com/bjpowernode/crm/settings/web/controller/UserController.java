@@ -1,5 +1,7 @@
 package com.bjpowernode.crm.settings.web.controller;
 
+import com.bjpowernode.crm.entity.R;
+import com.bjpowernode.crm.exception.AjaxRequestException;
 import com.bjpowernode.crm.exception.LoginException;
 import com.bjpowernode.crm.settings.domain.User;
 import com.bjpowernode.crm.settings.service.UserService;
@@ -18,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 //lombok提供的日志输出信息
 @Slf4j
@@ -140,6 +143,16 @@ public class UserController {
 
 
 
+    }
+    //查询用户列表数据
+    @RequestMapping("/getUserList.do")
+    @ResponseBody
+    public R getUserList() throws AjaxRequestException {
+        //查询用户列表
+        List<User> userList=userService.findUserList();
+        if(ObjectUtils.isEmpty(userList))
+            throw new AjaxRequestException("用户查询异常");
+        return R.ok(0,"查询成功",userList);
     }
 
 }

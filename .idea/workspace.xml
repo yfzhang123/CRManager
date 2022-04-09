@@ -10,7 +10,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9dbe1902-d800-4a83-9301-cde08c6084b2" name="变更" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/webContexts.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/webContexts.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/webContexts.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
@@ -71,7 +71,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="jdk.selected.JAVA_MODULE" value="1.8 (2)" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/crm/src/main/java/com/bjpowernode/crm/settings/dao" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/crm/src/main/java/com/bjpowernode/crm/workbench/dao" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="问题" />
     <property name="project.structure.proportion" value="0.1507799" />
@@ -80,17 +80,18 @@
   </component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.bjpowernode.crm.workbench.dao" />
+      <recent name="com.bjpowernode.crm.workbench.domain" />
+      <recent name="com.bjpowernode.crm.workbench.service.impl" />
+      <recent name="com.bjpowernode.crm.workbench.service" />
       <recent name="com.bjpowernode.crm.settings.domain" />
-      <recent name="com.bjpowernode.crm.settings.dao" />
-      <recent name="com.bjpowernode.crm.settings.service.impl" />
-      <recent name="com.bjpowernode.crm.settings.service" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\yangfan_desk\sixStage\project\CRM\crm\src\main\java\com\bjpowernode\crm\workbench\dao" />
+      <recent name="D:\yangfan_desk\sixStage\project\CRM\crm\src\main\webapp\image" />
+      <recent name="D:\yangfan_desk\sixStage\project\CRM\crm\src\main\java\com\bjpowernode\crm\utils" />
       <recent name="D:\yangfan_desk\sixStage\project\CRM\crm\src\main\java\com\bjpowernode\crm\settings\dao" />
       <recent name="D:\yangfan_desk\sixStage\project\CRM\crm\src\main\java\com\bjpowernode\crm\exception" />
-      <recent name="D:\yangfan_desk\sixStage\project\CRM\crm\src\main\webapp\WEB-INF" />
-      <recent name="D:\yangfan_desk\sixStage\project\CRM\crm\src\main\java\com\bjpowernode\crm\workbench" />
-      <recent name="D:\yangfan_desk\sixStage\project\CRM\crm\src\main\webapp\WEB-INF\jsp" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\yangfan_desk\sixStage\project\CRM\crm\src\main\webapp" />
@@ -221,7 +222,11 @@
       <workItem from="1648259380368" duration="14840000" />
       <workItem from="1648430875085" duration="22384000" />
       <workItem from="1648718130274" duration="12284000" />
-      <workItem from="1648795322219" duration="15041000" />
+      <workItem from="1648795322219" duration="21762000" />
+      <workItem from="1649247445286" duration="8371000" />
+      <workItem from="1649292504578" duration="8353000" />
+      <workItem from="1649301074709" duration="24155000" />
+      <workItem from="1649377822760" duration="945000" />
     </task>
     <servers />
   </component>

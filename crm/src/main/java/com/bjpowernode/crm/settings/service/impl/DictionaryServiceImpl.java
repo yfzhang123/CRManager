@@ -6,6 +6,9 @@ import com.bjpowernode.crm.settings.dao.DictionaryValueDao;
 import com.bjpowernode.crm.settings.domain.DictionaryType;
 import com.bjpowernode.crm.settings.domain.DictionaryValue;
 import com.bjpowernode.crm.settings.service.DictionaryService;
+
+
+import com.bjpowernode.crm.utils.UUIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -88,4 +91,47 @@ public class DictionaryServiceImpl implements DictionaryService {
 
         return dictionaryValueDao.findAll();
     }
+
+    @Override
+    public boolean saveDictionaryValue(DictionaryValue dictionaryValue) throws AjaxRequestException {
+        //给字典值的id进行赋值操作
+        dictionaryValue.setId(UUIDUtil.getUUID());
+        //新增操作
+        boolean flag=dictionaryValueDao.insert(dictionaryValue);
+        if(!flag)
+            throw new AjaxRequestException("新增失败");
+        return true;
+    }
+
+    @Override
+    public DictionaryValue findDictionaryValueById(String id) {
+        return dictionaryValueDao.findDictionaryValueById(id);
+
+    }
+
+    @Override
+    public boolean updateDictionaryValue(DictionaryValue dictionaryValue) {
+        return dictionaryValueDao.updateDictionaryValue(dictionaryValue);
+
+    }
+
+    @Override
+    public boolean batchDeleteDictionaryValue(String[] ids) throws AjaxRequestException {
+        //批量删除
+        //根据遍历方式逐个删除
+//        for (String id :
+//                ids) {
+//            boolean flag=dictionaryValueDao.deleteByid(id);
+//            if(!flag)
+//                throw new AjaxRequestException("删除失败");
+//        }
+        //直接批量删除
+        boolean flag=dictionaryValueDao.deletelistByids(ids);
+        if(!flag){
+            throw new AjaxRequestException("删除失败");
+        }
+        return true;
+    }
+
+
 }

@@ -20,4 +20,14 @@ public interface DictionaryService {
     List<String> batchDeleteDictionaryTypeCondition(String[] codes) throws AjaxRequestException;
 
     List<DictionaryValue> findDictionaryValueList();
+
+    boolean saveDictionaryValue(DictionaryValue dictionaryValue) throws AjaxRequestException;
+
+    DictionaryValue findDictionaryValueById(String id);
+
+    boolean updateDictionaryValue(DictionaryValue dictionaryValue);
+
+    boolean batchDeleteDictionaryValue(String[] ids) throws AjaxRequestException;
+
+
 }

@@ -4,6 +4,20 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.bjpowernode.crm.settings.dao.DictionaryValueDao">
+    <insert id="insert">
+        insert into tbl_dic_value
+        (id,value ,text,orderNo,typeCode) VALUES (#{id},#{value},#{text},#{orderNo},#{typeCode})
+    </insert>
+    <update id="updateDictionaryValue">
+        update tbl_dic_value set value=#{value},text=#{text},orderNo=#{orderNo}
+        where id=#{id}
+    </update>
+    <delete id="deletelistByids">
+        delete from tbl_dic_value where id in
+        <foreach collection="array" item="c" separator="," open="(" close=")">
+            #{c}
+        </foreach>
+    </delete>
 
 
     <select id="findListByTypeCode" resultType="java.lang.Integer">
@@ -11,5 +25,8 @@
     </select>
     <select id="findAll" resultType="com.bjpowernode.crm.settings.domain.DictionaryValue">
         select * from tbl_dic_value
+    </select>
+    <select id="findDictionaryValueById" resultType="com.bjpowernode.crm.settings.domain.DictionaryValue">
+        select * from tbl_dic_value where id=#{id}
     </select>
 </mapper>

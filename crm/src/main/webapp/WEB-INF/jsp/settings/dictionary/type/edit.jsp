@@ -52,7 +52,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 		<div class="form-group">
 			<label for="create-describe" class="col-sm-2 control-label">描述</label>
 			<div class="col-sm-10" style="width: 300px;">
-				<textarea class="form-control" rows="3" id="description" name="description" style="width: 200%;">${dictionaryType.description}</textarea>
+				<textarea class="form-control" rows="3" id="description" name="description" style="width: 200%;" >${dictionaryType.description}</textarea>
 			</div>
 		</div>
 	</form>

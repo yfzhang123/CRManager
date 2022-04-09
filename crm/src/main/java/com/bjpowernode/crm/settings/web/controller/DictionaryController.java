@@ -164,6 +164,87 @@ public class DictionaryController {
         resultMap.put("data",dictionaryValueList);
         return resultMap;
     }
+    //跳转到字典值添加页面
+    @RequestMapping("/value/toSave.do")
+    public String toValueSave(){
+        return "/settings/dictionary/value/save";
+    }
+    //异步请求查询字典类型
+    @RequestMapping("/type/getDictionaryTypeList.do")
+    @ResponseBody
+    public Map<String,Object> getDictionaryTypeList() throws AjaxRequestException {
+        List<DictionaryType> dictionaryTypeList = dictionaryService.findDictionaryTypeList();
+        if(ObjectUtils.isEmpty(dictionaryTypeList)){
+            throw new AjaxRequestException("字典编码查询异常");
+        }
+        Map<String,Object> resultMap=new HashMap<>();
+        resultMap.put("code",0);
+        resultMap.put("msg","查询成功");
+        resultMap.put("data",dictionaryTypeList);
+        return resultMap;
+    }
+    //字典值添加
+    @RequestMapping("/value/saveDictionaryValue.do")
+    @ResponseBody
+    public Map<String,Object> saveDictionaryValue(DictionaryValue dictionaryValue) throws AjaxRequestException {
+        boolean flag=dictionaryService.saveDictionaryValue(dictionaryValue);
+        Map<String,Object> resultMap=new HashMap<>();
+        if(!flag)
+            throw new AjaxRequestException("新增失败");
+        resultMap.put("code",0);
+        resultMap.put("msg","添加成功");
+        return resultMap;
+
+    }
+    //字典值更新跳转
+    @RequestMapping("/value/toEdit.do")
+    public String toValueEdit(String id,Model model) throws TraditionRequestException {
+        //根据编码查询字典类型数据
+        DictionaryValue dictionaryValue = dictionaryService.findDictionaryValueById(id);
+        if (dictionaryValue==null){
+            throw new TraditionRequestException("当前数据查询异常");
+        }
+
+
+        //封装到Model对象中
+        model.addAttribute("dictionaryValue1",dictionaryValue);
+
+        //跳转到修改页面
+        return "/settings/dictionary/value/edit";
+    }
+    //进行value数据的更新，修改数据
+    @RequestMapping("/value/updateDictionaryValue.do")
+    @ResponseBody
+    public Map<String,Object> updateDictionaryValue(DictionaryValue dictionaryValue) throws AjaxRequestException {
+        //更新操作，以update方法名称开头
+        boolean flag=dictionaryService.updateDictionaryValue(dictionaryValue);
+        if(!flag){
+            //修改失败
+            throw new AjaxRequestException("修改字典值失败");
+
+        }
+        Map<String,Object> resultMap=new HashMap<>();
+        resultMap.put("code",0);
+        resultMap.put("msg","修改成功");
+        return resultMap;
+
+    }
+
+    //批量删除字典值操作
+    @RequestMapping("/value/batchDeleteDictionaryValue.do")
+    @ResponseBody
+    public Map<String,Object> batchDeleteDictionaryValue(String[] ids) throws AjaxRequestException {
+        boolean flag=dictionaryService.batchDeleteDictionaryValue(ids);
+        if(!flag){
+            throw new AjaxRequestException("删除失败");
+        }
+        Map<String,Object> resultMap=new HashMap<>();
+        resultMap.put("code",0);
+        resultMap.put("msg","删除成功");
+        return resultMap;
+
+    }
+
 }
 
 

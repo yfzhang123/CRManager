@@ -3,6 +3,7 @@ package com.bjpowernode.crm.settings.service;
 import com.bjpowernode.crm.exception.LoginException;
 import com.bjpowernode.crm.settings.domain.User;
 
+import java.util.List;
 import java.util.Map;
 
 public interface UserService {
@@ -10,5 +11,7 @@ public interface UserService {
     @Deprecated
     public User findUserByLoginActAndLoginPwd(String loginAct, String loginPwd);
     public Map<String,Object> findUserByLoginActAndLoginPwd_new(String loginAct, String loginPwd,String ip) throws LoginException;
+
+    List<User> findUserList();
 
 }

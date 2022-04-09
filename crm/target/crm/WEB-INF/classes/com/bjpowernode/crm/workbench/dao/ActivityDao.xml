@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bjpowernode.crm.workbench.dao.ActivityDao">
+    <insert id="insert">
+        insert into tbl_activity
+        (id,owner,name,startDate,endDate,cost,description,createTime,createBy,editTime,editBy)
+        VALUES (#{id},#{owner},#{name},#{startDate},#{endDate},#{cost},#{description},#{createTime},#{createBy},#{editTime},#{editBy})
+    </insert>
+
+    <!--   <select id="findById" resultType="com.bjpowernode.crm.settings.domain.DictionaryType">
+           select * from tbl_dic_type where
+       </select>-->
+
+    <select id="findAll" resultType="com.bjpowernode.crm.workbench.domain.Activity">
+        select
+        a.id,
+        b.name as owner,
+        a.name,
+        a.startDate,
+        a.endDate,
+        a.cost,
+        a.description,
+        a.createTime,
+        a.createBy,
+        a.editTime,
+        a.editBy,
+        a.isDelete
+        from tbl_activity a,tbl_user b
+        where a.owner=b.id
+    </select>
+    <select id="findAllByPage" resultType="com.bjpowernode.crm.workbench.domain.Activity">
+        select
+            a.id,
+            b.name as owner,
+            a.name,
+            a.startDate,
+            a.endDate,
+            a.cost,
+            a.description,
+            a.createTime,
+            a.createBy,
+            a.editTime,
+            a.editBy,
+            a.isDelete
+        from tbl_activity a,tbl_user b
+        where a.owner=b.id
+        limit #{pageNo},#{pageSize}
+    </select>
+    <select id="findTotalCounts" resultType="java.lang.Long">
+        select count(*)
+        from tbl_activity a,tbl_user b
+        where a.owner=b.id
+    </select>
+    <select id="findAllByPageCondition" resultType="com.bjpowernode.crm.workbench.domain.Activity">
+        select
+            a.id,
+            b.name as owner,
+            a.name,
+            a.startDate,
+            a.endDate,
+            a.cost,
+            a.description,
+            a.createTime,
+            a.createBy,
+            a.editTime,
+            a.editBy,
+            a.isDelete
+        from tbl_activity a,tbl_user b
+        <where>
+            a.owner=b.id
+            <if test="name!=null and name!=''">
+                and a.name like '%' #{name} '%'
+            </if>
+            <if test="username!=null and username!=''">
+                and b.name=#{username}
+            </if>
+            <if test="startDate!=null and startDate!=''">
+                and a.startDate &gt;=#{startDate}
+            </if>
+            <if test="endDate!=null and endDate!=''">
+                and a.endDate &lt;=#{endDate}
+            </if>
+        </where>
+            limit #{pageNo},#{pageSize}
+
+
+    </select>
+    <select id="findTotalCountsCondition" resultType="java.lang.Long">
+        select count(*)
+        from tbl_activity a,tbl_user b
+        <where>
+            a.owner=b.id
+            <if test="name!=null and name!=''">
+                and a.name like '%' #{name} '%'
+            </if>
+            <if test="username!=null and username!=''">
+                and b.name=#{username}
+            </if>
+            <if test="startDate!=null and startDate!=''">
+                and a.startDate &gt;=#{startDate}
+            </if>
+            <if test="endDate!=null and endDate!=''">
+                and a.endDate &lt;=#{endDate}
+            </if>
+        </where>
+
+    </select>
+</mapper>

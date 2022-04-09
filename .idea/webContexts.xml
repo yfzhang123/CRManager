@@ -3,7 +3,9 @@
   <component name="WebContextManager">
     <option name="state">
       <map>
+        <entry key="file://$PROJECT_DIR$/crm/src/main/webapp/WEB-INF/jsp/settings/dictionary/type/edit.jsp" value="file://$PROJECT_DIR$/crm/src/main/webapp/WEB-INF/jsp/settings/dictionary/type" />
         <entry key="file://$PROJECT_DIR$/crm/src/main/webapp/WEB-INF/jsp/settings/dictionary/type/save.jsp" value="file://$PROJECT_DIR$/crm/src/main/webapp/WEB-INF/jsp/settings/dictionary/type" />
+        <entry key="file://$PROJECT_DIR$/crm/src/main/webapp/WEB-INF/jsp/settings/dictionary/value/edit.jsp" value="file://$PROJECT_DIR$/crm/src/main/webapp/WEB-INF/jsp/settings/dictionary/value" />
       </map>
     </option>
   </component>
