@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bjpowernode.crm.workbench.dao.CustomerDao">
+    <insert id="insert">
+       insert into tbl_customer
+    (id ,owner,
+name,
+website,
+phone,
+createBy,
+createTime,
+editBy,
+editTime,
+contactSummary,
+nextContactTime,
+description,
+address) VALUES (
+
+                           #{id} ,#{owner},
+                           #{name},
+                           #{website},
+                           #{phone},
+                           #{createBy},
+                           #{createTime},
+                           #{editBy},
+                           #{editTime},
+                           #{contactSummary},
+                           #{nextContactTime},
+                           #{description},
+                           #{address}
+                       )
+    </insert>
+    <select id="findByName" resultType="com.bjpowernode.crm.workbench.domain.Customer">
+        select * from tbl_customer where name=#{customerName}
+    </select>
+    <select id="findCustomerNameListLike" resultType="java.lang.String">
+        select name from tbl_customer where name like '%' #{name} '%'
+    </select>
+</mapper>

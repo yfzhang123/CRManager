@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bjpowernode.crm.workbench.dao.TranDao">
+    <insert id="insert">
+        insert into tbl_tran
+        (
+            id,
+            owner,
+            money,
+            name,
+            expectedDate,
+            customerId,
+            stage,
+            type,
+            source,
+            activityId,
+            contactsId,
+            createBy,
+            createTime,
+            editBy,
+            editTime,
+            description,
+            contactSummary,
+            nextContactTime
+        )
+        values
+            (
+                #{id},
+                #{owner},
+                #{money},
+                #{name},
+                #{expectedDate},
+                #{customerId},
+                #{stage},
+                #{type},
+                #{source},
+                #{activityId},
+                #{contactsId},
+                #{createBy},
+                #{createTime},
+                #{editBy},
+                #{editTime},
+                #{description},
+                #{contactSummary},
+                #{nextContactTime}
+            )
+    </insert>
+    <update id="update">
+        update tbl_tran set
+            owner=#{owner},
+                money=#{money},
+            name=#{name},
+expectedDate=#{expectedDate},
+customerId=#{customerId},
+stage=#{stage},
+type=#{type},
+source=#{source},
+activityId=#{activityId},
+contactsId=#{contactsId},
+editBy=#{editBy},
+editTime=#{editTime},
+description=#{description},
+contactSummary=#{contactSummary},
+nextContactTime=#{nextContactTime}
+
+        where id=#{id}
+
+    </update>
+    <update id="updateStageById">
+        update tbl_tran set stage=#{stage},editBy=#{editBy},editTime=#{editTime} where id = #{tranId}
+    </update>
+    <delete id="deleteTranByIdList">
+        delete from tbl_tran where id in
+        <foreach collection="array" item="c" separator="," open="(" close=")">
+            #{c}
+        </foreach>
+    </delete>
+    <select id="findAllPage" resultType="com.bjpowernode.crm.workbench.domain.Tran">
+
+    select
+        a.id,
+        b.name as owner,
+        a.money,
+        a.name,
+        a.expectedDate,
+        d.name as customerId,
+        a.stage,
+        a.type,
+        a.source,
+        a.activityId,
+        c.fullname as contactsId,
+        a.createBy,
+        a.createTime,
+        a.editBy,
+        a.editTime,
+        a.description,
+        a.contactSummary,
+        a.nextContactTime
+    from tbl_tran a,tbl_user b,tbl_contacts c,tbl_customer d
+    where a.owner=b.id and a.customerId=d.id and a.contactsId=c.id
+        limit #{pageNo},#{pageSize}
+    </select>
+    <select id="findTotalCounts" resultType="java.lang.Long">
+        select count(*)
+        from tbl_tran a,tbl_user b
+        where a.owner=b.id
+    </select>
+    <select id="findAllByPageCondition" resultType="com.bjpowernode.crm.workbench.domain.Tran">
+        select
+            a.id,
+            b.name as owner,
+            a.money,
+            a.name,
+            a.expectedDate,
+            d.name as customerId,
+            a.stage,
+            a.type,
+            a.source,
+            a.activityId,
+            c.fullname as contactsId,
+            a.createBy,
+            a.createTime,
+            a.editBy,
+            a.editTime,
+            a.description,
+            a.contactSummary,
+            a.nextContactTime
+        from tbl_tran a,tbl_user b,tbl_contacts c,tbl_customer d
+        <where>
+            a.owner=b.id and a.customerId=d.id and a.contactsId=c.id
+            <if test="name!=null and name!=''">
+                and a.name like '%' #{name} '%'
+            </if>
+            <if test="customerId!=null and customerId!=''">
+                and d.name like '%' #{customerId} '%'
+            </if>
+            <if test="owner!=null and owner!=''">
+                and b.name=#{owner}
+            </if>
+            <if test="contactsId!=null and contactsId!=''">
+                and  c.fullname=#{contactsId}
+            </if>
+            <if test="type!=null and type!=''">
+                and a.type=#{type}
+            </if>
+            <if test="source!=null and source!=''">
+                and a.source=#{source}
+            </if>
+            <if test="stage!=null and stage!=''">
+                and a.stage=#{stage}
+            </if>
+        </where>
+        limit #{pageNo},#{pageSize}
+
+    </select>
+    <select id="findTotalCountsCondition" resultType="java.lang.Long">
+        select
+        count(*)
+        from tbl_tran a,tbl_user b,tbl_contacts c,tbl_customer d
+        <where>
+            a.owner=b.id and a.customerId=d.id and a.contactsId=c.id
+            <if test="name!=null and name!=''">
+                and a.name like '%' #{name} '%'
+            </if>
+            <if test="customerId!=null and customerId!=''">
+                and d.name like '%' #{customerId} '%'
+            </if>
+            <if test="owner!=null and owner!=''">
+                and b.name=#{owner}
+            </if>
+            <if test="contactsId!=null and contactsId!=''">
+                and  c.fullname=#{contactsId}
+            </if>
+            <if test="type!=null and type!=''">
+                and a.type=#{type}
+            </if>
+            <if test="source!=null and source!=''">
+                and a.source=#{source}
+            </if>
+            <if test="stage!=null and stage!=''">
+                and a.stage=#{stage}
+            </if>
+        </where>
+    </select>
+    <select id="findTranById" resultType="com.bjpowernode.crm.workbench.domain.Tran">
+        select
+            a.id,
+            b.name as owner,
+            a.money,
+            a.name,
+            a.expectedDate,
+            d.name as customerId,
+            a.stage,
+            a.type,
+            a.source,
+            e.name as activityId,
+            c.fullname as contactsId,
+            a.createBy,
+            a.createTime,
+            a.editBy,
+            a.editTime,
+            a.description,
+            a.contactSummary,
+            a.nextContactTime
+        from tbl_tran a,tbl_user b,tbl_contacts c,tbl_customer d,tbl_activity e
+        where a.owner=b.id and a.customerId=d.id and a.contactsId=c.id and a.activityId=e.id and a.id =#{id}
+    </select>
+    <select id="findActivityId" resultType="java.lang.String">
+        select activityId from tbl_tran where id=#{id}
+    </select>
+    <select id="findContactsId" resultType="java.lang.String">
+        select contactsId from tbl_tran where id=#{id}
+    </select>
+    <select id="findTranConvertById" resultType="com.bjpowernode.crm.workbench.domain.Tran">
+        select
+            t.id,
+            u.name as owner,
+            t.money,
+            t.name,
+            t.expectedDate,
+            cu.name as customerId,
+            t.stage,
+            t.type,
+            t.source,
+            a.name as activityId,
+            co.fullname as contactsId,
+            t.createBy,
+            t.createTime,
+            t.editBy,
+            t.editTime,
+            t.description,
+            t.contactSummary,
+            t.nextContactTime
+        from tbl_tran t,tbl_user u,tbl_contacts co,tbl_customer cu, tbl_activity a
+        where
+            t.id = #{id}
+          and t.owner = u.id
+          and t.contactsId = co.id
+          and t.customerId = cu.id
+          and t.activityId = a.id
+    </select>
+</mapper>

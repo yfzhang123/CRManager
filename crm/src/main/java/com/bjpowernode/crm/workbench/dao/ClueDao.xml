@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bjpowernode.crm.workbench.dao.ClueDao">
+    <insert id="saveClue">
+        insert into tbl_clue
+       (id,fullname,appellation,owner,company,job,email,phone,website,mphone,state,source,createBy,createTime,editBy,editTime,description,contactSummary,nextContactTime,address)
+        VALUES (#{id},#{fullname},#{appellation},#{owner},#{company},#{job},#{email},#{phone},#{website},#{mphone},#{state},#{source},#{createBy},#{createTime},#{editBy},#{editTime},#{description},#{contactSummary},#{nextContactTime},#{address})
+
+    </insert>
+    <update id="updateClueById">
+        update tbl_clue set
+        fullname=#{fullname},appellation=#{appellation},owner=#{owner},company=#{company},job=#{job},email=#{email},phone=#{phone},website=#{website},
+     mphone=#{mphone},state=#{state},source=#{source},editBy=#{editBy},editTime=#{editTime},description=#{description},contactSummary=#{contactSummary},nextContactTime=#{nextContactTime},address=#{address} where id=#{id}
+    </update>
+    <delete id="deleteByIdList">
+        delete from tbl_clue where id in
+        <foreach collection="array" item="c" separator="," open="(" close=")">
+            #{c}
+        </foreach>
+    </delete>
+    <delete id="deleteById">
+        delete from tbl_clue where id = #{clueId}
+    </delete>
+    <!-- <insert id="insert">
+         insert into tbl_activity
+         (id,owner,name,startDate,endDate,cost,description,createTime,createBy,editTime,editBy,isDelete)
+         VALUES (#{id},#{owner},#{name},#{startDate},#{endDate},#{cost},#{description},#{createTime},#{createBy},#{editTime},#{editBy},0)
+     </insert>
+     <update id="updateActivityById">
+         update tbl_activity
+         set name=#{name},owner=#{owner},startDate=#{startDate},endDate=#{endDate},cost=#{cost},
+             description=#{description},editBy=#{editBy},editTime=#{editTime} where id=#{id}
+
+     </update>
+     <update id="updateIsDeleteById">
+         update tbl_activity set isDelete='1',editBy =#{param2},editTime=#{param3} where id=#{param1}
+     </update>-->
+
+
+    <select id="findAll" resultType="com.bjpowernode.crm.workbench.domain.Clue">
+        select
+            a.id,
+            b.name as owner,
+            a.fullname,
+            a.company,
+            a.appellation,
+            a.job,
+            a.email,
+            a.phone,
+            a.website,
+            a.mphone,
+            a.state,
+            a.source,
+            a.description,
+            a.createTime,
+            a.createBy,
+            a.editTime,
+            a.editBy,
+            a.contactSummary,
+            a.nextContactTime,
+            a.address
+        from tbl_clue a,tbl_user b
+        where a.owner=b.id
+    </select>
+    <select id="findAllByPage" resultType="com.bjpowernode.crm.workbench.domain.Clue">
+        select
+            a.id,
+            b.name as owner,
+            a.fullname,
+            a.company,
+            a.appellation,
+            a.job,
+            a.email,
+            a.phone,
+            a.website,
+            a.mphone,
+            a.state,
+            a.source,
+            a.description,
+            a.createTime,
+            a.createBy,
+            a.editTime,
+            a.editBy,
+            a.contactSummary,
+            a.nextContactTime,
+            a.address
+        from tbl_clue a,tbl_user b
+        where a.owner=b.id
+        limit #{pageNo},#{pageSize}
+
+    </select>
+    <select id="findTotalCounts" resultType="java.lang.Long">
+        select count(*)
+        from tbl_clue a,tbl_user b
+        where a.owner=b.id
+    </select>
+    <select id="findAllByPageCondition" resultType="com.bjpowernode.crm.workbench.domain.Clue">
+        select
+        a.id,
+        b.name as owner,
+        a.fullname,
+        a.company,
+        a.appellation,
+        a.job,
+        a.email,
+        a.phone,
+        a.website,
+        a.mphone,
+        a.state,
+        a.source,
+        a.description,
+        a.createTime,
+        a.createBy,
+        a.editTime,
+        a.editBy,
+        a.contactSummary,
+        a.nextContactTime,
+        a.address
+        from tbl_clue a,tbl_user b
+        <where>
+            a.owner=b.id
+            <if test="clueName!=null and clueName!=''">
+                and a.fullname like '%' #{clueName} '%'
+            </if>
+            <if test="username!=null and username!=''">
+                and b.name=#{username}
+            </if>
+            <if test="comp!=null and comp!=''">
+                and a.company=#{comp}
+            </if>
+            <if test="mphone!=null and mphone!=''">
+                and a.mphone=#{mphone}
+            </if>
+            <if test="phone!=null and phone!=''">
+                and a.phone=#{phone}
+            </if>
+            <if test="source!=null and source!=''">
+                and a.source=#{source}
+            </if>
+            <if test="state!=null and state!=''">
+                and a.state=#{state}
+            </if>
+        </where>
+        limit #{pageNo},#{pageSize}
+    </select>
+    <select id="findTotalCountsCondition" resultType="java.lang.Long">
+        select count(*)
+        from tbl_clue a,tbl_user b
+        <where>
+            a.owner=b.id
+            <if test="clueName!=null and clueName!=''">
+                and a.fullname like '%' #{clueName} '%'
+            </if>
+            <if test="username!=null and username!=''">
+                and b.name=#{username}
+            </if>
+            <if test="comp!=null and comp!=''">
+                and a.company=#{comp}
+            </if>
+            <if test="mphone!=null and mphone!=''">
+                and a.mphone=#{mphone}
+            </if>
+            <if test="phone!=null and phone!=''">
+                and a.phone=#{phone}
+            </if>
+            <if test="source!=null and source!=''">
+                and a.source=#{source}
+            </if>
+            <if test="state!=null and state!=''">
+                and a.state=#{state}
+            </if>
+        </where>
+    </select>
+    <select id="findById" resultType="com.bjpowernode.crm.workbench.domain.Clue">
+        select
+        *
+        from tbl_clue
+        where id=#{id}
+    </select>
+    <select id="findClueById" resultType="com.bjpowernode.crm.workbench.domain.Clue">
+        select
+        a.id,
+        b.name as owner,
+        a.fullname,
+        a.company,
+        a.appellation,
+        a.job,
+        a.email,
+        a.phone,
+        a.website,
+        a.mphone,
+        a.state,
+        a.source,
+        a.description,
+        a.createTime,
+        a.createBy,
+        a.editTime,
+        a.editBy,
+        a.contactSummary,
+        a.nextContactTime,
+        a.address
+        from tbl_clue a,tbl_user b
+        where
+        a.owner=b.id and a.id=#{id}
+    </select>
+    <select id="findRelationList" resultType="com.bjpowernode.crm.workbench.domain.Activity">
+select
+
+a.id,
+u.name as owner,
+a.name,
+a.startDate,
+a.endDate,
+a.cost,
+a.description,
+a.createTime,
+a.createBy,
+a.editTime,
+a.editBy,
+a.isDelete
+from tbl_activity a,tbl_user u where u.id=a.owner and a.id in (
+select activityId from tbl_clue_activity_relation where clueId=#{clueId})
+    </select>
+    <select id="findActivityRelationListMap" resultType="java.util.Map">
+        select
+            a.id,
+            car.id as carId,
+            u.name as owner,
+            a.name,
+            a.startDate,
+            a.endDate,
+            a.cost,
+            a.description,
+            a.createTime,
+            a.createBy,
+            a.editTime,
+            a.editBy,
+            a.isDelete
+        from tbl_activity a,tbl_user u,(select id, activityId from tbl_clue_activity_relation where clueId=#{clueId}) car
+        where u.id=a.owner and a.id in (
+            car.activityId)
+    </select>
+    <select id="findActivityUnRelationList" resultType="com.bjpowernode.crm.workbench.domain.Activity">
+        select
+            a.id,
+            u.name as owner,
+            a.name,
+            a.startDate,
+            a.endDate,
+            a.cost,
+            a.description,
+            a.createTime,
+            a.createBy,
+            a.editTime,
+            a.editBy,
+            a.isDelete
+        from tbl_activity a,tbl_user u where u.id=a.owner and a.isDelete='0' and a.id not in (
+            select activityId from tbl_clue_activity_relation where clueId=#{clueId})
+    </select>
+    <select id="findLikeActivityUnRelationList" resultType="com.bjpowernode.crm.workbench.domain.Activity">
+        select
+            a.id,
+            u.name as owner,
+            a.name,
+            a.startDate,
+            a.endDate,
+            a.cost,
+            a.description,
+            a.createTime,
+            a.createBy,
+            a.editTime,
+            a.editBy,
+            a.isDelete
+        from tbl_activity a,tbl_user u where u.id=a.owner and a.isDelete='0' and a.id not in (
+            select activityId from tbl_clue_activity_relation where clueId=#{clueId})
+                                         <if test="activityName != null and activityName!=''">
+                                             and a.name like '%' #{activityName} '%'
+                                         </if>
+
+
+    </select>
+
+</mapper>
